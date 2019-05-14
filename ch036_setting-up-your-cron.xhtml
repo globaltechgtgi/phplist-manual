@@ -66,10 +66,57 @@
 define ("MANUALLY_PROCESS_QUEUE",0);</pre>
 <p>This will hide the links to process the queue and bounces from the phpList interface.
 </p>
+<h3>Remote queue processing</h3>
+<p>The remote queue processing is often called “phpList cron job” due to its similarity of other automatic cron jobs. Before version 3.1 there was not a standard option to process the queue from a different location than the same server your phpList instance is installed. From version
+3.1.1 onwards there is an option to remotely process the queue. It is always highly recommended to use the latest phpList version for security updates and for your own convenience as latest versions offer more functionalities.</p>
+
+<p>In <strong>Config -> Settings</strong> under the <strong>Security</strong> section, there will be an option called "Secret for remote processing". The first time, it will generate a random code, which you can use, or you can set your own.
+
+To run the queue remotely, all you need to do is load the following page:</p>
+
+http(s)://yoursite.com/lists/admin/?page=processqueue&amp;secret=XXXX
+
+<p>Where the XXXX is the value that is set for the "Secret for remote processing"</p>
+<h3>Use the Hosted Service</h3>
+<p> phpList.com now has a “secret” way to get our servers to process your queue for you. There are no payment plans and if you use this, you will help us to tweak the way it works, and in return we will process your queues without charge.<br />
+
+We offer this, because the last thing we'd want is that the queue processing is an obstacle for using phpList. From any point of view, but mostly performance, we advise the use of commandline processing because that is the most powerful way of sending. phpList Hosted is using commandline for everything. But in some cases this may not be an option. This is where our service hopefully fulfills a need. <br />
+
+To use the phpList.com queue processing service sign up at <a href="https://www.phplist.com/createaccount">https://www.phplist.com/</a>. <br />
+
+Once you signed up, get your API key. <br />
+
+The first time you try to manually process your queue, you will get the option to set up processing with phpList.com. You can use that to set up the API key. <br />
+
+Alternatively go to: <br />
+<pre><strong>http://www.yoursite.com/lists/admin/?page=hostedprocessqueuesetup</strong></pre> 
+
+
+<p>From then on, when you place a campaign in the queue, or requeue an existing one, it will activate the processing from our servers. We will run the queue very often and make sure your campaigns are sent.</p>
+
+<p>If you place an embargo on a campaign, the hosted queue processing service will detect this and wait until your embargo has passed to send your campaigns.</p>
+
+<p>We do keep track of the statistics, and we will give you a summary in your account pages. The phpList.com service uses the exact same system as the normal remote processing outlined above and we have no other access to your system. </p>
 <h2>Notes
 </h2>
 <p>There's no danger in overloading your server. When a second queue processing command is activated when the previous one is still active, phpList will detect this and bail out. Therefore there will always be one active queue sending process at any time. This is also important to ensure that the sending limits, set with Batch processing, will be honoured.
 </p>
+<h2>Appendix</h2>
+<h3>How safe is this?</h3>
+<p>Is it not easy for someone to steal my secret? Particularly when you call the parameter
+“secret”. <br />
+It is quite safe, but you need to determine this for yourself. The output of the page when
+using the remote secret is minimised to only the statistics. If an “attacker” gets hold of your
+secret, all they would do is help you process your queue. In fact, if you run the queue this
+way yourself, you will be logged out from phpList. The access with the secret is restricted to
+processing the queue and nothing else. We will later on extend this to processing bounces
+as well. In comparison, using a “username=X&amp;password=Y” processing URL would allow
+anyone snooping that data to have access to your entire phpList system.Also, if you use HTTPS, chances of someone stealing your secret are way lower.
+</p>
+<h3>What about timeouts, how long will the request last? </h3>
+<p>When run from a webpage, phpList, by default, will only run the queue processing for one
+minute. It will try to send as many mails as possible in that time. Then you will need to run it
+again.</p>
 <h2>Feedback
 </h2>
 <p>Discuss this chapter <a href="https://discuss.phplist.org/t/setting-up-your-cron-manual-chapter-feedback-and-discussion/226">here</a>.
