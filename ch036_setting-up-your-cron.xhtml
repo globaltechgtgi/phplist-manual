@@ -53,8 +53,11 @@
 0 3 * * * phplist -pprocessbounces &gt; /dev/null 2&gt;&amp;1</pre>
 <p>The above example will process the queue once every 5 minutes and process the bounces once a day. That will be sufficient for most systems.
 </p>
-<p>The example also discards any output, which you will want to do. You can always check the output by running the above commands manually from the shell-prompt.
+<p>The example also discards any output, which you will want to do. You can always check the output by running the above commands manually from the shell-prompt without <pre>&gt; /dev/null 2&gt;&amp;1</pre> .
   <br/></p>
+<p> On CentOS 7 you need to specify the full path to the bash script. Your cron entries should look like this:</p>
+<pre>0-59/5 * * * * /usr/local/bin/phplist -pprocessqueue &gt; /dev/null 2&gt;&amp;1
+0 3 * * * /usr/local/bin/phplist -pprocessbounces &gt; /dev/null 2&gt;&amp;1</pre>
 <h2>Step 3: tell phpList
 </h2>
 <p>Once you've set up the cron and it is working, you can tell phpList and some links will disappear. Put the following two lines in your config file:
