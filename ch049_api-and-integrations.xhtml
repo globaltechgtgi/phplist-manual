@@ -8,8 +8,8 @@
     <p>phpList 3.4.0 and later includes a <abbr title="Representational State Transfer">REST</abbr> API which, when enabled, allows other software systems to interact with it in a variety of ways, such as managing subscribers, lists, and campaigns.</p>
 
     <h3>System requirements</h3>
-    <p>The REST API has different server requirements than phpList 3 &mdash; it may not be compatible with your environment even if you are already using phpList 3 successfully. The most significant difference is the requirement of PHP 7. Apache users must also have support for <code>.htaccess</code> files enabled in order to use the API securely.</p>
-    <p>For the full list of requirements please see the <a href="https://github.com/phpList/base-distribution#phplist-4-base-distribution" target="_blank">System Requirements</a> of phpList 4.</p>
+    <p>The REST API has different server requirements than phpList 3 &mdash; it may not be compatible with your environment even if you are already using phpList 3 successfully. The most significant difference is the requirement of PHP 7. Apache users must also have support for <code>.htaccess</code> files and <code> mod_rewrite</code> enabled in order to use the API securely.</p>
+    <p>For the full list of requirements please see the <a href ="https://github.com/phpList/base-distribution#phplist-4-base-distribution" target="_blank">System Requirements</a> of phpList 4.</p>
     <h3>Enable the API</h3>
     <ul>
       <li>Open the following file with a text editor: <code>public_html/lists/base/config/config_modules.yml</code></li>
@@ -17,15 +17,18 @@
       <li>Delete this folder entirely: <code>public_html/lists/base/cache</code></li>
     </ul> 
     <h3>Access the API</h3>
-    <p>By default the base URL for API requests is <code>http://my-website.com/lists/base/public/api/v2/</code>. So, to authenticate a new API session you could use following URL: <code>http://my-website.com/lists/base/public/api/v2/sessions</code>. This access URL can be changed by editing your webserver configuration.</p>
+    <p>By default the base URL for API requests is <code>http://my-website.com/lists/api/v2/</code>. So, to authenticate a new API session you could use following URL: <code>http://my-website.com/lists/api/v2/sessions</code>. This access URL can be changed by editing your webserver configuration.</p>
     <h3>Test the API</h3>
     <p>To check if the API is enabled and working properly, you can try authenticating a new session from a Linux or Mac terminal using the <code>curl</code> command-line utility. Substitute the example phpList installation URL, and phpList admin username and password, in the following command, and copy and paste it into your terminal:</p>
-    <p><code>curl --request POST --url http://my-website.com/lists/base/public/api/v2/sessions --header 'Content-Type: application/json' --data '{"login_name": "admin","password": "phplist"}'</code></p>
+    <p><code>curl --request POST --url http://my-website.com/lists/api/v2/sessions --header 'Content-Type: application/json' --data '{"login_name": "admin","password": "phplist"}'</code></p>
     <p>The output should be similar to the following, with different expiry date, key, and id:</p>
     <p><code>{"expiry":"2019-03-31T18:16:42+00:00","key":"24244871cf45aa2f1c0dbddf82b9912b","id":6}</code></p>
     <p>If instead you see a message in HTML stating '403 Forbidden', then you should check your webserver's permission configuration.</p>
+    <p>Non-superuser administrators cannot authenticate via the REST API. </p>
+    <p>Given valid login data, this will generate a login token that will be valid for 1 hour.</p>
+    <p>The login token then can be passed as basic auth password for requests that require authentication. </p>
     <h3>Examples of API clients / implementations</h3>
-    <p>To demonstrate how to use the API some example clients are available in different programming languages. See the <a href="" target="_blank">REST API Client Examples</a> repository for details.</p>
+    <p>To demonstrate how to use the API some example clients are available in different programming languages. See the <a href="https://github.com/phpList/RestAPIclientSimpleExample" target="_blank">REST API Client Examples</a> repository for details.</p>
     <h3>Example API clients</h3>
     <p>Demo implementations of the API in various languages can be found in the dedicated <a href="https://github.com/phpList/RestAPIclientSimpleExample" target="_blank">repository</a>.</p>
     <h3>Enable API logging</h3>
